@@ -1,0 +1,74 @@
+<div class="modal invite-system-administrator-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <ng-form name="InviteSystemAdminForm">
+                <div class="modal-header">
+                    <div class="material-icons pull-right" ng-click="$hide()">clear</div>
+                    <div class="modal-title"
+                         ng-bind="'MODULES_INVITATION_SERVICES_USER_INV' | translate : 'User Invitation'"></div>
+                </div>
+                <div class="modal-body panel">
+                    <div class="row">
+                        <div class="col-sm-12 text-left padding">
+                            <div class="form-group name"
+                                 ng-class="{error: (InviteSystemAdminForm.name.$dirty && InviteSystemAdminForm.name.$invalid) || (InviteSystemAdminForm.name.$invalid && InviteSystemAdminForm.attempted)}">
+
+                                <label class="input-label" for="name">
+                                        <span class="input-label-content input-label-content-1"
+                                              data-content="{{'MODULES_INVITATION_SERVICES_FRIENDLY_NAME' | translate : 'Friendly name (for your reference)' | removeAccent}}"
+                                              ng-bind="'MODULES_INVITATION_SERVICES_FRIENDLY_NAME' | translate : 'Friendly name (for your reference)'"></span>
+                                </label>
+
+                                <input input-filled name="name" ng-model="name" id="name"
+                                       type="text" ng-minlength="2" ng-maxlength="40" required/>
+
+                                        <!-- Name Validation -->
+                                    <div ng-messages="InviteSystemAdminForm.name.$error" ng-if="InviteSystemAdminForm.name.$dirty && InviteSystemAdminForm.name.$invalid && !InviteSystemAdminForm.name.$pristine">
+                                        <p class="error invalid-name" ng-message-exp="['minlength', 'maxlength']"
+                                           ng-bind="'MODULES_INVITATION_SERVICES_VALIDATION_NAME_MIN_MAX' | translate : 'The friendly name must be between 2 and 40 characters long'">
+                                        </p>
+                                    </div>
+                            </div>
+
+                            <!-- email -->
+                            <div class="form-group email"
+                                  ng-class="{error: (InviteSystemAdminForm.email.$dirty && InviteSystemAdminForm.email.$invalid) || (InviteSystemAdminForm.email.$invalid && InviteSystemAdminForm.attempted)}">
+
+                                <label class="input-label" for="email">
+                                    <span class="input-label-content input-label-content-1"
+                                          data-content="{{'MODULES_INVITATION_SERVICES_EMAIL_SEND' | translate : 'Email to send invitation' | removeAccent}}"
+                                          ng-bind="'MODULES_INVITATION_SERVICES_EMAIL_SEND' | translate : 'Email to send invitation'"></span>
+                                </label>
+
+                                <input input-filled type="email" name="email" ng-model="email" id="email"
+                                       pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                                       required ui-validate="{notCurrent: 'notCurrentUser($value)'}">
+
+
+
+                                <!-- Email Validation -->
+                                <div ng-messages="InviteSystemAdminForm.email.$error"
+                                     ng-if="InviteSystemAdminForm.email.$dirty && InviteSystemAdminForm.email.$invalid && !InviteSystemAdminForm.email.$pristine">
+                                    <p class="error" ng-message="pattern">
+                                        {{'PAGES_PUBLIC_REGISTER_VALIDATION_EMAIL_INVALID_PATTERN' | translate :'Wrong email format'}}
+                                    </p>
+                                    <p class="error" ng-message="notCurrent">
+                                        {{'MODULES_INVITATION_SERVICES_VALIDATION_NOT_SELF' | translate :'You can not invite yourself'}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-right padding">
+                            <button type="button"
+                                    class="btn solid-btn"
+                                    ng-disabled="!InviteSystemAdminForm.$valid"
+                                    ng-bind="'PAGES_MANAGEMENT_ACCOUNTS_MANAGEMENT_INVITE_USER' | translate : 'Invite User'"
+                                    ng-click="inviteSystemAdminServiceController.inviteSystemAdmin(name, email)">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>

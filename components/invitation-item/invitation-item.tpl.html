@@ -1,0 +1,44 @@
+<div class="row invitation-item-directive">
+    <div class="col-sm-12">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <img fallback-image sources="$ctrl.image"
+                     class="img-circle user-img user-avatar"/>
+            </div>
+            <div class="col-sm-12">
+
+                <div class="row">
+                    <div class="col-sm-12" ng-if="$ctrl.invitation.recipientEmail">
+                        <p>{{$ctrl.invitation.recipientEmail}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>{{$ctrl.invitation.friendlyName}} ({{$ctrl.invitation.role}})</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 margin-top invitation-element-margin waiting-label">
+                        {{'MODULES_INVITATION_DIRECTIVES_INVITATION_ITEM_INVITATION_STATUS'|translate:'Waiting to accept invitation'}}
+                    </div>
+                    <div class="col-sm-12 margin-top invitation-element-margin">
+                        <button
+                                ng-click="$ctrl.showResendConfirmationModal()"
+                                class="btn ghost-btn">
+                            {{'MODULES_INVITATION_DIRECTIVES_INVITATION_ITEM_RESEND_INVITATION'|translate:'Resend invitation'}}
+                        </button>
+                        <button ng-click="$ctrl.showCancellationConfirmationModal()"
+                                class="btn secondary-btn">
+                            {{'MODULES_INVITATION_DIRECTIVES_INVITATION_ITEM_CANCEL_INVITATION'|translate:'Cancel invitation'}}
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>

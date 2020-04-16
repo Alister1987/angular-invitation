@@ -1,0 +1,93 @@
+<div class="modal invite-user-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <ng-form name="InviteUserForm">
+                <div class="modal-header">
+                    <div class="material-icons pull-right" ng-click="$hide()">clear</div>
+                    <div class="modal-title" ng-bind="'MODULES_INVITATION_SERVICES_USER_INV' | translate : 'User Invitation'"></div>
+                </div>
+                <div class="modal-body panel">
+                    <div class="row">
+                        <div class="col-sm-12 text-left padding">
+                            <div class="form-group name"
+                                 ng-class="{error: (InviteUserForm.name.$dirty && InviteUserForm.name.$invalid && !InviteUserForm.name.$pristine)}">
+
+                                <label class="input-label">
+                                    <span data-content="{{'MODULES_INVITATION_SERVICES_FRIENDLY_NAME' | translate : 'Friendly name (for your reference)' | removeAccent}}">
+                                        {{'MODULES_INVITATION_SERVICES_FRIENDLY_NAME' | translate : 'Friendly name (for your reference)'}}
+                                    </span>
+                                </label>
+
+                                <input input-filled
+                                       type="text" name="name" ng-model="name"
+                                       ng-minlength="2" ng-maxlength="40" required/>
+
+
+                                <!-- Name Validation -->
+                                <div ng-messages="InviteUserForm.name.$error" ng-if="InviteUserForm.name.$dirty && InviteUserForm.name.$invalid && !InviteUserForm.name.$pristine">
+                                    <p class="error invalid-name" ng-message-exp="['minlength', 'maxlength']">
+                                        {{'MODULES_INVITATION_SERVICES_VALIDATION_NAME_MIN_MAX' | translate : 'The friendly name must be between 2 and 40 characters long'}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- email -->
+                            <div class="form-group email"
+                                 ng-class="{error: (InviteUserForm.email.$dirty && InviteUserForm.email.$invalid && !InviteUserForm.email.$pristine)}">
+
+                                <label class="input-label">
+                                    <span data-content="{{'MODULES_INVITATION_SERVICES_EMAIL_SEND' | translate : 'Email to send invitation' | removeAccent}}">
+                                        {{'MODULES_INVITATION_SERVICES_EMAIL_SEND' | translate : 'Email to send invitation'}}
+                                    </span>
+                                </label>
+
+                                <input input-filled
+                                       type="email"
+                                       name="email"
+                                       ng-model="email"
+                                       pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                                       required
+                                       ui-validate="{notCurrent: 'notCurrentUser($value)'}"/>
+
+                                <!-- Email Validation -->
+                                <div ng-messages="InviteUserForm.email.$error"  ng-if="InviteUserForm.email.$dirty && InviteUserForm.email.$invalid && !InviteUserForm.email.$pristine">
+                                    <p class="error" ng-message="pattern">{{'PAGES_PUBLIC_REGISTER_VALIDATION_EMAIL_INVALID_PATTERN' | translate :'Wrong email format'}}</p>
+                                    <p class="error" ng-message="notCurrent">{{'MODULES_INVITATION_SERVICES_VALIDATION_NOT_SELF' | translate :'You can not invite yourself'}}</p>
+                                </div>
+                            </div>
+                            <!-- role -->
+                            <div class="form-group url">
+                                <label class="input-label">{{'MODULES_INVITATION_SERVICES_SELECT_ROLE' | translate : 'Select Role'}}</label>
+
+                                <ui-select ng-model="$parent.role" ng-disabled="disabled" theme="bootstrap" required>
+                                    <ui-select-match placeholder="{{'MODULES_INVITATION_SERVICES_SELECT_ROLE' | translate : 'Select Role'}}">
+                                        <!--{{$select.selected.name}}-->
+                                        {{'MODULES_USER_DIRECTIVES_USER_MENU_ROLE_' + $select.selected.name | translate: $select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="role in roles | filter: $select.search track by $index">
+                                        <span ng-bind-html="'MODULES_USER_DIRECTIVES_USER_MENU_ROLE_' + role.name | translate: role.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-right padding">
+                            <button type="button"
+                                    class="btn solid-btn"
+                                    ng-disabled="!InviteUserForm.$valid"
+                                    ng-bind="'MODULES_INVITATION_SERVICES_INV_USER' | translate : 'Invite User'"
+                                    ng-click="inviteUserModalServiceController.inviteUser(name, email, role)">
+                            </button>
+                        </div>
+                        <div class="col-sm-12 margin-top">
+                            <label ng-bind="'MODULES_INVITATION_SERVICES_ROLES_DEF' | translate : 'Roles Definition:'"></label>
+                            <!--<p>{{'MODULES_INVITATION_SERVICES_ADMIN_EXPL' | translate : '*Administrator: Can basically do anything to the account'}}</p>-->
+                            <p>{{'MODULES_INVITATION_SERVICES_FINANC_EXPL' | translate : '*Financial/Sales:  Has access to financial and account usage information but can’t access the services'}}.</p>
+                            <p>{{'MODULES_INVITATION_SERVICES_MARK_EXPL' | translate : '*Marketing: Has access to the services but can’t access the financial and account usage information'}}.</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>
